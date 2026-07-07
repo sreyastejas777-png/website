@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applications | CALOR MEGA Premium Industrial Food Dehydrator</title>
+    <meta name="description" content="Discover the hundreds of possibilities with CALOR MEGA. Ensure stable 5% moisture and 12+ months shelf life for your produce.">
+    <meta name="keywords" content="Premium Industrial Food Dehydrator, Commercial Produce Drying Machine, Post-Harvest Wastage Solutions, Crop Dehydration, Food Processing">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Global Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">CALOR<span>MEGA</span></div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="technology.html">Technology</a>
+                <a href="applications.html" class="active">Applications</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div style="display: flex; align-items: center; gap: 24px;">
+                <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="btn btn-primary" data-track="whatsapp-click" data-location="sticky-nav" target="_blank" rel="noopener">Get a Quote &rarr;</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Block 1: Hero Section -->
+    <header class="hero" style="min-height: auto; padding-top: 180px; padding-bottom: 60px;">
+        <div class="container text-center reveal-on-scroll" style="max-width: 800px; margin: 0 auto;">
+            <div class="tagline" style="margin-bottom: 16px;">Crop Explorer</div>
+            <h1 class="headline" style="font-size: 56px; margin-bottom: 24px;">One Machine.<br><span>Hundreds of Possibilities.</span></h1>
+            <p style="font-size: 24px; margin-bottom: 40px;">From delicate fruits to robust spices, CALOR MEGA helps preserve quality, reduce waste, and create massive business value.</p>
+        </div>
+    </header>
+
+    <!-- Block 2: Category Selector -->
+    <section class="container reveal-on-scroll" style="padding-bottom: 40px; transition-delay: 0.1s;">
+        <div class="category-filters">
+            <button class="category-btn active" data-filter="all">All Crops</button>
+            <button class="category-btn" data-filter="fruits">🍍 Fruits</button>
+            <button class="category-btn" data-filter="spices">🌶️ Spices</button>
+            <button class="category-btn" data-filter="vegetables">🥬 Vegetables</button>
+            <button class="category-btn" data-filter="herbs">🌿 Herbs</button>
+            <button class="category-btn" data-filter="plantation">☕ Plantation</button>
+        </div>
+    </section>
+
+    <!-- Block 3: Interactive Crop Grid -->
+    <section class="container reveal-on-scroll" style="padding-bottom: 100px; transition-delay: 0.2s;">
+        <div id="crop-grid" class="crop-grid">
+            <!-- Populated dynamically via applications.js -->
+        </div>
+    </section>
+
+    <!-- Block 4: Interactive Crop Details (Modal) -->
+    <div id="crop-modal" class="crop-modal-overlay">
+        <div class="crop-modal-content">
+            <button id="modal-close" class="crop-modal-close">&times;</button>
+            
+            <div class="modal-header">
+                <div class="tagline">CALOR MEGA Performance</div>
+                <h2 id="modal-title">Crop Name</h2>
+            </div>
+
+            <div class="modal-body">
+                <!-- Visual Flow -->
+                <div class="modal-flow">
+                    <div class="flow-step">
+                        <div id="modal-emoji-fresh" class="flow-icon">🥭</div>
+                        <span>Fresh</span>
+                    </div>
+                    <div class="flow-arrow">&rarr;</div>
+                    <div class="flow-step">
+                        <div id="modal-emoji-dried" class="flow-icon" style="filter: brightness(0.8) contrast(1.2);">🥭</div>
+                        <span>Dehydrated</span>
+                    </div>
+                </div>
+
+                <!-- Data Comparison -->
+                <div class="modal-data-grid">
+                    <div class="data-box">
+                        <div class="data-label">Moisture Reduction</div>
+                        <div class="data-value">
+                            <span id="modal-moisture-start" style="font-size: 20px; color: var(--text-secondary);"></span> 
+                            &rarr; 
+                            <span id="modal-moisture-end"></span>
+                        </div>
+                    </div>
+                    <div class="data-box">
+                        <div class="data-label">Shelf Life Extension</div>
+                        <div class="data-value">
+                            <span id="modal-shelf-start" style="font-size: 20px; color: var(--text-secondary);"></span> 
+                            &rarr; 
+                            <span id="modal-shelf-end"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products and Benefits -->
+                <div class="modal-lists">
+                    <div class="modal-list-box">
+                        <h3>Possible Products</h3>
+                        <ul id="modal-products"></ul>
+                    </div>
+                    <div class="modal-list-box">
+                        <h3>Business Benefits</h3>
+                        <ul id="modal-benefits"></ul>
+                    </div>
+                </div>
+
+                <!-- Related Crops -->
+                <div class="related-crops">
+                    <h3>Explore Related</h3>
+                    <div id="modal-related" class="related-grid"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="https://wa.me/1234567890" class="btn btn-primary" style="font-size: 20px; padding: 16px 32px;" target="_blank" rel="noopener">
+                        Can CALOR MEGA Process My Crop?
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Block 5: Business Opportunities -->
+    <section class="reveal-on-scroll" style="background: var(--bg-secondary); padding: 100px 0; border-top: 1px solid var(--gunmetal-border);">
+        <div class="container">
+            <div class="section-header" style="margin-bottom: 60px;">
+                <div class="tagline">Endless Growth</div>
+                <h2>Key Business Opportunities</h2>
+            </div>
+            
+            <div class="features-grid" style="padding: 0;">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>12+ Months Shelf Life</h3>
+                    <p>Achieve an incredibly stable 5% moisture content. Prevent mold and bacterial growth, dramatically extending your product's market viability.</p>
+                </div>
+                <div class="feature-card reveal-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="feature-icon">🚢</div>
+                    <h3>Export Markets</h3>
+                    <p>Meet international moisture and quality standards to ship globally without spoilage.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Retail & FMCG</h3>
+                    <p>Package and sell branded healthy dried fruit snacks directly to supermarkets.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🌾</div>
+                    <h3>Farmer Collectives (FPOs)</h3>
+                    <p>Save surplus harvests from price crashes by processing and storing safely.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏛️</div>
+                    <h3>Government Projects</h3>
+                    <p>Implement rural food security and MSME subsidy programs effectively.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧪</div>
+                    <h3>Powder Production</h3>
+                    <p>Create base ingredients for baby food, soups, and ready-to-eat meals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 6: Success Statistics -->
+    <section class="container reveal-on-scroll">
+        <div class="stats-grid-4">
+            <div class="stat-box">
+                <div class="stat-box-number">100+</div>
+                <div class="stat-box-label">Crop Types Verified</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-number">12+</div>
+                <div class="stat-box-label">Months Shelf Life</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-number">5%</div>
+                <div class="stat-box-label">Stable Final Moisture</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-number">SS 304</div>
+                <div class="stat-box-label">Premium Food Grade Build</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Block 7: Final CTA -->
+    <section class="cta-section reveal-on-scroll">
+        <div class="container">
+            <h2>Ready to Preserve More. Earn More.</h2>
+            <p>Our engineers are standing by to calculate the perfect machine capacity for your unique product.</p>
+            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://wa.me/1234567890?text=Hello%2C%20I%20would%20like%20to%20know%20if%20CALOR%20MEGA%20can%20process%20my%20specific%20crop." class="btn btn-whatsapp-solid" data-track="whatsapp-click" data-location="applications-cta" target="_blank" rel="noopener">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Check Your Crop
+                </a>
+                <a href="contact.html" class="btn btn-secondary" style="font-size: 20px; padding: 16px 40px; border-radius: 12px;">Request Quote</a>
+                <a href="https://wa.me/1234567890" class="btn btn-whatsapp-solid" target="_blank" rel="noopener">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Talk to Our Expert
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">CALOR<span>MEGA</span></div>
+                <div class="nav-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                </div>
+            </div>
+            <p style="color: var(--text-secondary); text-align: center;">&copy; 2026 CALOR MEGA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Widget -->
+    <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="floating-whatsapp" data-track="whatsapp-click" data-location="floating-widget" target="_blank" rel="noopener">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/applications.js"></script>
+</body>
+</html>
