@@ -7,13 +7,29 @@
     <meta name="description" content="Explore the advanced engineering of CALOR MEGA. 10x10 foot premium SS 304 aluminum construction for commercial produce drying.">
     <meta name="keywords" content="Premium Industrial Food Dehydrator, Commercial Produce Drying Machine, SS 304 Dehydrator, 10x10 Food Dryer">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/webgl.css">
 </head>
 <body>
 
     <!-- Global Navigation -->
     <nav class="navbar">
         <div class="container nav-container">
-            <div class="logo">CALOR<span>MEGA</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="nav-chat-btn" id="fab-chat-btn" aria-label="Open Chatbot" data-tooltip="Chatbot" style="background: transparent; border: none; cursor: pointer; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <model-viewer 
+                        src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="30deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; background-color: transparent;"
+                        alt="3D Chatbot">
+                    </model-viewer>
+                </button>
+                <div class="logo" style="margin: 0;">CALOR<span>MEGA</span></div>
+            </div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="technology.html" class="active">Technology</a>
@@ -23,86 +39,309 @@
             </div>
             <div style="display: flex; align-items: center; gap: 24px;">
                 <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="btn btn-primary" data-track="whatsapp-click" data-location="sticky-nav" target="_blank" rel="noopener">Get a Quote &rarr;</a>
+                <div style="cursor: pointer;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </div>
+                <button class="nav-calc-btn" id="fab-calc-btn" aria-label="Open ROI Calculator" data-tooltip="Calculator">
+                    <model-viewer 
+                        src="models/calculator (1).glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="45deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; cursor: grab; background-color: transparent;"
+                        alt="3D Calculator">
+                    </model-viewer>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="hero" style="min-height: auto; padding-top: 180px; padding-bottom: 60px;">
-        <div class="container text-center reveal-on-scroll" style="max-width: 800px; margin: 0 auto;">
-            <div class="tagline" style="margin-bottom: 16px;">Inside The Machine</div>
-            <h1 class="headline" style="font-size: 56px; margin-bottom: 24px;">Advanced <span>Engineering</span></h1>
-            <p style="font-size: 24px; margin-bottom: 0;">Discover the commercial-grade components that make CALOR MEGA the industry standard for durability.</p>
-        </div>
-    </header>
+    <!-- Living Blueprint WebGL Canvas -->
+    <canvas id="webgl-canvas"></canvas>
 
-    <!-- Technology Details -->
-    <section class="container" style="padding-bottom: 100px;">
-        <div class="features-grid">
+    <!-- Scroll Timeline (Empty divs that drive the GSAP ScrollTrigger) -->
+    <div id="scroll-container">
+        <!-- Phase 1: X-Ray Teardown -->
+        <div class="scroll-phase" id="phase-xray">
+            <div class="phase-content">
+                <h1 class="blueprint-title">CALOR MEGA</h1>
+                <p class="blueprint-subtitle">The Living Blueprint</p>
+                <div class="scroll-indicator" style="margin-top: 40px; border-color: rgba(255,255,255,0.3);">
+                    <span style="color: #fff;">Scroll to Inspect</span>
+                    <div class="scroll-line" style="background: #fff;"></div>
+                </div>
+            </div>
             
-            <div class="feature-card reveal-on-scroll">
-                <div class="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                </div>
-                <h3>Precision Heating Coils</h3>
-                <p>Industrial-grade electric heating elements provide rapid temperature rise and consistent heat maintenance without fluctuations. Ensures perfectly uniform drying across all trays.</p>
+            <!-- Exploded View UI Cards (Faded in via GSAP) -->
+            <div class="ui-card card-shell">
+                <h4>SS 304 Aluminum Shell</h4>
+                <p>10x10 foot premium food-grade construction. Zero contamination.</p>
             </div>
-
-            <div class="feature-card reveal-on-scroll" style="transition-delay: 0.1s;">
-                <div class="feature-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                </div>
-                <h3>10x10 Foot SS 304 Construction</h3>
-                <p>Built with massive 10x10 foot premium aluminum and SS 304 food-grade stainless steel. Engineered for extreme durability and zero contamination.</p>
+            <div class="ui-card card-foam">
+                <h4>Thermal Insulation</h4>
+                <p>High-density foam retains 99% of internal heat for maximum energy efficiency.</p>
             </div>
-
-            <div class="feature-card reveal-on-scroll" style="transition-delay: 0.2s;">
-                <div class="feature-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent-primary);"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
-                </div>
-                <h3>Internal Blower Fans</h3>
-                <p>High-velocity centrifugal blowers establish a powerful, continuous cross-flow of air. This ensures every tray receives identical thermal exposure.</p>
-                <ul style="margin-top: 16px; padding-left: 20px; color: var(--text-secondary);">
-                    <li>Uniform moisture extraction</li>
-                    <li>Variable speed control</li>
-                    <li>Whisper-quiet operation</li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="text-center" style="margin-top: 60px;">
-            <h2>Ready to Upgrade Your Technology?</h2>
-            <p>Consult with our engineers to configure the perfect heating and airflow system for your specific dehydration needs.</p>
-            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
-                <a href="https://wa.me/1234567890?text=Hello%2C%20I%20would%20like%20more%20information%20on%20the%20heating%20and%20air%20circulation%20technology%20of%20CALOR%20MEGA." class="btn btn-whatsapp-solid" data-track="whatsapp-click" data-location="technology-cta" target="_blank" rel="noopener">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Chat on WhatsApp
-                </a>
+            <div class="ui-card card-trays">
+                <h4>Drying Trays & Coils</h4>
+                <p>Precision electric heating elements and uniform cross-flow blower fans.</p>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="logo">CALOR<span>MEGA</span></div>
-                <div class="nav-links">
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms of Service</a>
+        <!-- Phase 2: Thermal Dynamics Engine -->
+        <div class="scroll-phase" id="phase-thermal">
+            <div class="phase-content" style="align-items: flex-end; padding-right: 10%;">
+                <div class="thermal-card">
+                    <h3 style="color: #ff4e00;">Thermal Dynamics Engine</h3>
+                    <p>Live heat-mapping proves uniform thermal distribution across all trays. No cold spots. Perfect dehydration.</p>
                 </div>
             </div>
-            <p style="color: var(--text-secondary); text-align: center;">&copy; 2026 CALOR MEGA. All rights reserved.</p>
         </div>
-    </footer>
+
+        <!-- Fixed UI overlays that animate during the scroll -->
+        <div id="fixed-ui-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 20;">
+            <div class="command-card ui-card" style="opacity: 0; visibility: hidden; top: 40%; left: 10%;">
+                <h3 style="color: #ffcc00;">Precision Command Center</h3>
+                <p>Industrial-grade digital controllers, intuitive LED readouts, and fail-safe analog pressure gauges put you in total control of the dehydration environment.</p>
+            </div>
+            <div class="roi-card ui-card" style="opacity: 0; visibility: hidden; top: 40%; right: 10%;">
+                <h3 style="color: #00e676;">Maximum Efficiency</h3>
+                <p>Engineered with dual ventilation grilles to optimize cross-flow aerodynamics. Superior heat retention translates to a faster ROI for your agricultural business.</p>
+            </div>
+        </div>
+
+        <!-- Phase 3: The Haptic Command Center -->
+        <div class="scroll-phase" id="phase-command"></div>
+        
+        <!-- Phase 4: The Dynamic ROI Engine -->
+        <div class="scroll-phase" id="phase-roi"></div>
+
+        <!-- Phase 5: The Conversion Horizon -->
+        <div class="scroll-phase" id="phase-conversion" style="background: #0f1115; min-height: 100vh; position: relative; padding-bottom: 250px; pointer-events: auto;">
+            <!-- Main Content Container with Flexbox/Grid for Lottie Animation -->
+            <div class="container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; height: 100%; min-height: calc(100vh - 250px); padding-top: 10vh;">
+                
+                <!-- Left Side: Text and CTA -->
+                <div style="flex: 1; min-width: 300px; max-width: 500px;">
+                    <h2 style="font-size: 48px; margin-bottom: 24px;">Ready to Upgrade?</h2>
+                    <p style="font-size: 20px; color: var(--text-secondary); margin-bottom: 40px;">Consult with our engineers to configure the perfect heating and airflow system for your specific dehydration needs.</p>
+                    <a href="https://wa.me/1234567890?text=Hello%2C%20I%20want%20to%20book%20a%20Technical%20Consultation." class="btn btn-whatsapp-solid" style="padding: 16px 32px; font-size: 18px;" target="_blank" rel="noopener">
+                        Book a Technical Consultation
+                    </a>
+                </div>
+
+                <!-- Right Side: Lottie Animation Container -->
+                <div id="lottie-container" style="flex: 1; min-width: 300px; height: 500px; display: flex; justify-content: center; align-items: center;">
+                    <!-- The JSON animation will be injected here automatically by Lottie -->
+                </div>
+
+            </div>
+
+            <!-- Footer: Placed absolutely at the bottom so it "rises upwards" seamlessly onto the blank space below the content -->
+            <footer style="position: absolute; bottom: 0; left: 0; width: 100%; height: 250px; z-index: 10; background: transparent; padding-top: 60px; padding-bottom: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; justify-content: flex-end;">
+                <div class="container">
+                    <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="nav-chat-btn" id="fab-chat-btn" aria-label="Open Chatbot" data-tooltip="Chatbot" style="background: transparent; border: none; cursor: pointer; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <model-viewer 
+                        src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="30deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; background-color: transparent;"
+                        alt="3D Chatbot">
+                    </model-viewer>
+                </button>
+                <div class="logo" style="margin: 0;">CALOR<span>MEGA</span></div>
+            </div>
+                        <div class="nav-links" style="display: flex; gap: 24px;">
+                            <a href="#privacy" style="color: var(--text-secondary); text-decoration: none;">Privacy Policy</a>
+                            <a href="#terms" style="color: var(--text-secondary); text-decoration: none;">Terms of Service</a>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); text-align: center; margin: 0;">&copy; 2026 CALOR MEGA. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Vertical Timeline Progress -->
+    <div class="progress-wayfinding">
+        <div class="progress-step active" data-target="01">01</div>
+        <div class="progress-step" data-target="02">02</div>
+        <div class="progress-step" data-target="03">03</div>
+        <div class="progress-step" data-target="04">04</div>
+        <div class="progress-step" data-target="05">05</div>
+        <div class="progress-line"><div class="progress-fill"></div></div>
+    </div>
+
+    <!-- Calculator Modal -->
+    <div id="calculator-widget">
+        <!-- Glassmorphic Modal Overlay -->
+        <div class="calc-modal-overlay" id="calc-modal">
+            <div class="calc-modal-content">
+                <button class="calc-close-btn" id="calc-close" aria-label="Close Calculator">&times;</button>
+                <div class="calc-header">
+                    <h3>Performance Calculator</h3>
+                    <p>Estimate your production & ROI</p>
+                </div>
+                
+                <div class="calc-body">
+                    <!-- Input Section -->
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="calc-product">Product Type</label>
+                            <select id="calc-product">
+                                <option value="0.8">Fruits (80% Moisture Loss)</option>
+                                <option value="0.7">Vegetables (70% Moisture Loss)</option>
+                                <option value="0.6">Meat/Jerky (60% Moisture Loss)</option>
+                                <option value="0.1">Spices/Herbs (10% Moisture Loss)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-input-kg">Input Quantity (kg / batch)</label>
+                            <input type="number" id="calc-input-kg" value="1000" min="10" step="10">
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-power">Power Cost ($ / kWh)</label>
+                            <input type="number" id="calc-power" value="0.12" min="0.01" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-batches">Batches per Month</label>
+                            <input type="number" id="calc-batches" value="20" min="1" step="1">
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="calc-results">
+                        <div class="result-card highlight">
+                            <h4>Estimated Output</h4>
+                            <div class="result-value"><span id="res-output">200</span> kg / batch</div>
+                        </div>
+                        <div class="result-card">
+                            <h4>Monthly Production</h4>
+                            <div class="result-value"><span id="res-monthly-output">4,000</span> kg</div>
+                        </div>
+                        <div class="result-card">
+                            <h4>Power Cost per Batch</h4>
+                            <div class="result-value">$<span id="res-power-cost">18.50</span></div>
+                        </div>
+                    </div>
 
     <!-- Floating WhatsApp Widget -->
-    <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="floating-whatsapp" data-track="whatsapp-click" data-location="floating-widget" target="_blank" rel="noopener">
+    <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="floating-whatsapp" data-track="whatsapp-click" data-location="floating-widget" target="_blank" rel="noopener" style="z-index: 100;">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
     <!-- Scripts -->
-    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>`n    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    
+    <script>
+        // Load the JSON animation for the right side and bind it to scroll
+        document.addEventListener("DOMContentLoaded", function() {
+            var animation = lottie.loadAnimation({
+                container: document.getElementById('lottie-container'), 
+                renderer: 'svg',
+                loop: false,      // Disable looping
+                autoplay: false,  // Disable autoplay, GSAP will control it
+                path: 'animations/update.json' // Updated to match the uploaded filename
+            });
+
+            // Once the Lottie file is loaded, bind it to natural mouse wheel and touch events
+            animation.addEventListener('DOMLoaded', function() {
+                var playhead = { frame: 0 };
+                var targetFrame = 0;
+                
+                // Safe modulo for negative numbers to allow infinite reverse scrolling
+                function wrapFrame(frame, total) {
+                    return ((Math.floor(frame) % total) + total) % total;
+                }
+                
+                function updatePlayhead(delta) {
+                    var container = document.getElementById('phase-conversion');
+                    if (!container) return;
+                    var rect = container.getBoundingClientRect();
+                    
+                    // Only spin the animation if the section is visible on screen
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        targetFrame += (delta * 0.15); // Adjust sensitivity here
+                        
+                        // Use GSAP to smoothly interpolate to the target frame (simulates ScrollTrigger scrub)
+                        gsap.to(playhead, {
+                            frame: targetFrame,
+                            duration: 1.0, // 1-second smoothing lag for buttery scrolling
+                            ease: "power2.out",
+                            onUpdate: function() {
+                                var currentFrame = wrapFrame(playhead.frame, animation.totalFrames);
+                                animation.goToAndStop(currentFrame, true);
+                            }
+                        });
+                    }
+                }
+
+                var upScrollAccumulator = 0;
+                var UNLOCK_THRESHOLD = 600; // The amount of "reverse travel" needed before the page scrolls up
+
+                function handleScroll(deltaY, e) {
+                    // Check if we are at the absolute bottom of the page
+                    var isAtBottom = Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight - 15;
+                    
+                    if (isAtBottom) {
+                        if (deltaY < 0) {
+                            // User is scrolling UP (Reversing)
+                            upScrollAccumulator += Math.abs(deltaY);
+                            
+                            // If they haven't scrolled up past the threshold, hold the page and just scrub the animation!
+                            if (upScrollAccumulator < UNLOCK_THRESHOLD) {
+                                if (e.cancelable) e.preventDefault();
+                                updatePlayhead(deltaY);
+                            }
+                            // If they pass the threshold, the browser takes over and naturally scrolls the page up!
+                        } else {
+                            // User is scrolling DOWN
+                            upScrollAccumulator = 0; // Lock them back in
+                            updatePlayhead(deltaY);
+                        }
+                    } else {
+                        // Not at the bottom of the page
+                        upScrollAccumulator = 0;
+                    }
+                }
+
+                // Desktop Wheel (scrolling)
+                window.addEventListener('wheel', function(e) {
+                    handleScroll(e.deltaY, e);
+                }, { passive: false }); // passive: false is required to allow e.preventDefault()
+
+                // Mobile Touch (swiping)
+                var lastY = 0;
+                window.addEventListener('touchstart', function(e) {
+                    lastY = e.touches[0].clientY;
+                }, { passive: true });
+                
+                window.addEventListener('touchmove', function(e) {
+                    var currentY = e.touches[0].clientY;
+                    var deltaY = lastY - currentY; // positive means scrolling down
+                    lastY = currentY;
+                    handleScroll(deltaY, e);
+                }, { passive: false });
+            });
+        });
+    </script>
+    
+    <script src="js/technology-webgl.js"></script>
+    <script src="js/main.js" defer></script>
+<script src="js/chatbot.js"></script>`n<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <script src="js/calculator.js"></script>
 </body>
 </html>
+
+

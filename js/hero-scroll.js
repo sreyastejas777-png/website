@@ -28,23 +28,19 @@
         // Register GSAP plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Ensure video plays
-        if (video) {
-            video.play().catch(() => {
-                video.muted = true;
-                video.play();
-            });
-        }
-
         // Build the scroll-driven timeline
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: container,
                 start: 'top top',
-                end: '+=200%',     // 2 viewport heights of scroll distance to slow it down
+                end: '+=400%',     // 4 viewport heights of scroll distance to slow it down significantly
                 pin: true,
                 scrub: 1,          // Elegant smoothing (1 second lag)
                 anticipatePin: 1,
+                onEnter: () => { if (video) video.play().catch(()=>{}); },
+                onLeave: () => { if (video) video.pause(); },
+                onEnterBack: () => { if (video) video.play().catch(()=>{}); },
+                onLeaveBack: () => { if (video) video.pause(); },
                 onUpdate: (self) => {
                     // When fully split, allow natural scrolling
                     if (self.progress === 1) {
@@ -153,6 +149,32 @@
             }
         }
 
+        // ── PREMIUM 3D ENTRANCE FOR NEXT SECTIONS ──
+        // Placed here so it initializes AFTER the 400vh pin is applied to the hero container!
+        const statsBar = document.querySelector('.stats-bar');
+        let statsBarTransition = null;
+        if (statsBar) {
+            statsBarTransition = gsap.fromTo(statsBar,
+                { y: 120, opacity: 0, rotationX: -15, transformPerspective: 1000 },
+                {
+                    scrollTrigger: { trigger: statsBar, start: "top 100%", end: "top 70%", scrub: 1 },
+                    y: 0, opacity: 1, rotationX: 0, ease: "power2.out"
+                }
+            );
+        }
+
+        const exploreSection = document.querySelector('.explore-section');
+        let exploreTransition = null;
+        if (exploreSection) {
+            exploreTransition = gsap.fromTo(exploreSection,
+                { y: 80, opacity: 0, scale: 0.98, transformPerspective: 1000 },
+                {
+                    scrollTrigger: { trigger: exploreSection, start: "top 95%", end: "top 65%", scrub: 1 },
+                    y: 0, opacity: 1, scale: 1, ease: "power2.out"
+                }
+            );
+        }
+
         // Handle resize: kill and rebuild if breakpoint crosses
         let currentMode = isMobile() ? 'mobile' : 'desktop';
         let resizeTimer;
@@ -165,6 +187,16 @@
                     currentMode = newMode;
                     tl.scrollTrigger.kill();
                     tl.kill();
+                    if (statsBarTransition) {
+                        if (statsBarTransition.scrollTrigger) statsBarTransition.scrollTrigger.kill();
+                        statsBarTransition.kill();
+                        gsap.set(statsBar, { clearProps: 'all' });
+                    }
+                    if (exploreTransition) {
+                        if (exploreTransition.scrollTrigger) exploreTransition.scrollTrigger.kill();
+                        exploreTransition.kill();
+                        gsap.set(exploreSection, { clearProps: 'all' });
+                    }
                     // Reset inline styles GSAP may have set
                     gsap.set([centerBlock, videoBlock, scrollIndicator, ...splitStats, ...splitCtas], { clearProps: 'all' });
                     if (heroStatsContainer) gsap.set(heroStatsContainer, { clearProps: 'all' });

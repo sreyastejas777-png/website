@@ -9,7 +9,22 @@
 <body>
     <nav class="navbar">
         <div class="container nav-container">
-            <div class="logo">CALOR<span>MEGA</span></div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="nav-chat-btn" id="fab-chat-btn" aria-label="Open Chatbot" data-tooltip="Chatbot" style="background: transparent; border: none; cursor: pointer; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <model-viewer 
+                        src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="30deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; background-color: transparent;"
+                        alt="3D Chatbot">
+                    </model-viewer>
+                </button>
+                <div class="logo" style="margin: 0;">CALOR<span>MEGA</span></div>
+            </div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="technology.html">Technology</a>
@@ -19,10 +34,23 @@
                 <a href="about.html">About</a>
             </div>
             <div style="display: flex; align-items: center; gap: 24px;">
-                <a href="contact.html" class="btn btn-primary">Get a Quote &rarr;</a>
+                <a href="https://wa.me/1234567890?text=Hello%2C%20I%20am%20interested%20in%20CALOR%20MEGA.%20Can%20I%20get%20more%20details%3F" class="btn btn-primary" data-track="whatsapp-click" data-location="sticky-nav" target="_blank" rel="noopener">Get a Quote &rarr;</a>
                 <div style="cursor: pointer;">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </div>
+                <button class="nav-calc-btn" id="fab-calc-btn" aria-label="Open ROI Calculator" data-tooltip="Calculator">
+                    <model-viewer 
+                        src="models/calculator (1).glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="45deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; cursor: grab; background-color: transparent;"
+                        alt="3D Calculator">
+                    </model-viewer>
+                </button>
             </div>
         </div>
     </nav>
@@ -37,7 +65,22 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="logo">CALOR<span>MEGA</span></div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                <button class="nav-chat-btn" id="fab-chat-btn" aria-label="Open Chatbot" data-tooltip="Chatbot" style="background: transparent; border: none; cursor: pointer; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <model-viewer 
+                        src="https://modelviewer.dev/shared-assets/models/RobotExpressive.glb" 
+                        camera-controls 
+                        auto-rotate 
+                        auto-rotate-delay="0"
+                        rotation-per-second="30deg"
+                        disable-zoom
+                        interaction-prompt="none"
+                        style="width: 100%; height: 100%; background-color: transparent;"
+                        alt="3D Chatbot">
+                    </model-viewer>
+                </button>
+                <div class="logo" style="margin: 0;">CALOR<span>MEGA</span></div>
+            </div>
                 <div class="nav-links">
                     <a href="privacy-policy.html">Privacy Policy</a>
                     <a href="terms.html">Terms of Service</a>
@@ -46,5 +89,61 @@
             <p style="color: var(--text-secondary); text-align: center;">&copy; 2026 CALOR MEGA. All rights reserved.</p>
         </div>
     </footer>
+<script src="js/chatbot.js"></script>`n<!-- Calculator Modal -->
+    <div id="calculator-widget">
+        <!-- Glassmorphic Modal Overlay -->
+        <div class="calc-modal-overlay" id="calc-modal">
+            <div class="calc-modal-content">
+                <button class="calc-close-btn" id="calc-close" aria-label="Close Calculator">&times;</button>
+                <div class="calc-header">
+                    <h3>Performance Calculator</h3>
+                    <p>Estimate your production & ROI</p>
+                </div>
+                
+                <div class="calc-body">
+                    <!-- Input Section -->
+                    <div class="calc-inputs">
+                        <div class="input-group">
+                            <label for="calc-product">Product Type</label>
+                            <select id="calc-product">
+                                <option value="0.8">Fruits (80% Moisture Loss)</option>
+                                <option value="0.7">Vegetables (70% Moisture Loss)</option>
+                                <option value="0.6">Meat/Jerky (60% Moisture Loss)</option>
+                                <option value="0.1">Spices/Herbs (10% Moisture Loss)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-input-kg">Input Quantity (kg / batch)</label>
+                            <input type="number" id="calc-input-kg" value="1000" min="10" step="10">
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-power">Power Cost ($ / kWh)</label>
+                            <input type="number" id="calc-power" value="0.12" min="0.01" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label for="calc-batches">Batches per Month</label>
+                            <input type="number" id="calc-batches" value="20" min="1" step="1">
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="calc-results">
+                        <div class="result-card highlight">
+                            <h4>Estimated Output</h4>
+                            <div class="result-value"><span id="res-output">200</span> kg / batch</div>
+                        </div>
+                        <div class="result-card">
+                            <h4>Monthly Production</h4>
+                            <div class="result-value"><span id="res-monthly-output">4,000</span> kg</div>
+                        </div>
+                        <div class="result-card">
+                            <h4>Power Cost per Batch</h4>
+                            <div class="result-value">$<span id="res-power-cost">18.50</span></div>
+                        </div>
+                    </div>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <script src="js/calculator.js"></script>
 </body>
 </html>
+
+

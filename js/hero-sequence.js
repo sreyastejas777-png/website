@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to set the hero section to its final resolved state instantly
     function resolveToFinalState() {
+        if (heroVideo) heroVideo.pause();
         introOverlay.style.display = 'none';
         
         uiElements.forEach(el => {
@@ -89,20 +90,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heroVideo) {
             heroVideo.currentTime = 0;
             
-            // Sync the appearance of the background and the video exactly when the first frame renders
-            heroVideo.addEventListener('playing', () => {
-                if (introOverlay) introOverlay.classList.add('video-ready');
-            }, { once: true });
+            // Wait for the video to be fully buffered to prevent jittery playback!
+            const startVideo = () => {
+                // Sync the appearance of the background and the video exactly when the first frame renders
+                heroVideo.addEventListener('playing', () => {
+                    if (introOverlay) introOverlay.classList.add('video-ready');
+                }, { once: true });
 
-            const playPromise = heroVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    console.log('Video autoplay blocked.', e);
-                    heroVideo.muted = true;
-                    heroVideo.play().then(() => {
-                        if (introOverlay) introOverlay.classList.add('video-ready');
+                const playPromise = heroVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(e => {
+                        console.log('Video autoplay blocked.', e);
+                        heroVideo.muted = true;
+                        heroVideo.play().then(() => {
+                            if (introOverlay) introOverlay.classList.add('video-ready');
+                        });
                     });
-                });
+                }
+            };
+
+            if (heroVideo.readyState >= 3) { // HAVE_FUTURE_DATA or HAVE_ENOUGH_DATA
+                startVideo();
+            } else {
+                heroVideo.addEventListener('canplay', startVideo, { once: true });
+                
+                // Fallback in case the event never fires
+                setTimeout(() => {
+                    if (heroVideo.readyState < 3) startVideo();
+                }, 1000);
             }
         }
 

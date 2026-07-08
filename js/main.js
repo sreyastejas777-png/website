@@ -1,5 +1,36 @@
 // main.js - Global interactions and motion design
 
+// Initialize Lenis Smooth Scrolling if available
+if (typeof Lenis !== 'undefined') {
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // standard ease-out
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+    });
+
+    // Synchronize Lenis with GSAP ScrollTrigger
+    if (typeof ScrollTrigger !== 'undefined') {
+        lenis.on('scroll', ScrollTrigger.update);
+        
+        gsap.ticker.add((time)=>{
+            lenis.raf(time * 1000);
+        });
+        
+        gsap.ticker.lagSmoothing(0);
+    } else {
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Scroll-driven reveals (IntersectionObserver)
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
@@ -19,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, revealOptions);
-    
+
     revealElements.forEach(el => {
         revealOnScroll.observe(el);
     });
@@ -53,4 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`[Analytics] WhatsApp Click Tracked: Location -> ${location}`);
         }
     });
+
+
 });

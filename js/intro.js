@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check session storage
     if (sessionStorage.getItem('introPlayed') === 'true') {
-        introOverlay.style.display = 'none';
+        // OPTIMIZATION: Completely remove video/overlay from DOM to free CPU/GPU resources
+        if (introOverlay) {
+            const video = introOverlay.querySelector('video');
+            if (video) video.pause();
+            introOverlay.remove();
+        }
         if (heroVisual) heroVisual.classList.add('cinematic-sweep', 'sweep-active');
         maskContainers.forEach(c => c.classList.add('revealed'));
         if (heroCta) heroCta.classList.add('revealed');
@@ -79,7 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     document.body.style.overflow = '';
                     sessionStorage.setItem('introPlayed', 'true');
-                    if (introOverlay) introOverlay.style.display = 'none';
+                    
+                    // OPTIMIZATION: Completely remove video/overlay from DOM to free CPU/GPU resources
+                    if (introOverlay) {
+                        const video = introOverlay.querySelector('video');
+                        if (video) video.pause();
+                        introOverlay.remove();
+                    }
                 }, 1700); // 1.7s CSS transition fade-out time
 
             }, 600); // 1.2s + 0.6s wait = 1.8s timestamp
